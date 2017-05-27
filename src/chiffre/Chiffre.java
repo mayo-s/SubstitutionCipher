@@ -21,11 +21,7 @@ public class Chiffre {
 		doStuff = new Chiffre();
 		// String userInput = doStuff.userInput();
 		int[][] charFrequency = doStuff.analyse(chiffre.toLowerCase());
-		// doStuff.decipher(charFrequency, chiffre);
-		System.out.println("\n");
-		// int[][] charFrequency2 = doStuff.analyse(text.toLowerCase());
-		// doStuff.decipher(charFrequency2, text);
-
+		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre);
 	}
 
 	private String userInput() throws IOException {
@@ -42,7 +38,7 @@ public class Chiffre {
 
 		char[] charArray = input.toCharArray();
 		int[][] statistics = new int[2][alphabetSize];
-		for(int i = 0; i < alphabetSize; i++ ){
+		for (int i = 0; i < alphabetSize; i++) {
 			statistics[0][i] = i + 97;
 		}
 
@@ -57,26 +53,50 @@ public class Chiffre {
 		System.out.println("Chiffre Inpur: " + chiffre);
 		System.out.println("Analysis: ");
 		for (int i = 0; i < alphabetSize; i++) {
-			System.out.println((char)statistics[0][i] + " " + statistics[1][i]);
+			System.out.println((char) statistics[0][i] + " " + statistics[1][i]);
 		}
-		System.out.println("Sorting: ");
+		
 		return statistics;
 	}
 
+
+	private int[][] sortArray(int[][] charFrequency) {
+		
+		int length = 26;
+
+		int[][] sortedByValue = new int[2][length];
+
+		for (int i = 0; i < length; i++) {
+			int maxValue = 0;
+			int theChar = 0;
+			int posOfMaxValue = 0;
+			for (int curr = 0; curr < length; curr++) {
+				if (charFrequency[1][curr] > maxValue){
+					theChar = charFrequency[0][curr];
+					maxValue = charFrequency[1][curr];
+					posOfMaxValue = curr;
+					
+				}
+			}	
+			sortedByValue[0][i] = theChar;
+			sortedByValue[1][i] = maxValue;
+			charFrequency[1][posOfMaxValue] = 0;
+		}
+
+		return sortedByValue;
+	}
+
 	private void decipher(int[][] charFrequency, String chiffre) {
+		
 		System.out.println("");
+		int length = 26;
 		char[] cipherText = chiffre.toCharArray();
 		char[] finalText = new char[chiffre.length()];
 		
-		for(char currChar : cipherText){
-			
-		}
 
-		for (int[] i : charFrequency) {
-			for (int n = chiffre.length(); n >= 0; n--) {
-
-				System.out.print("");
-			}
+		System.out.println("Sorted: ");
+		for (int i = 0; i < length; i++) {
+			System.out.println((char) charFrequency[0][i] + " " + charFrequency[1][i]);
 		}
 	}
 }
