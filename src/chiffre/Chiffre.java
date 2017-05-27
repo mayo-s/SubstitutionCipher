@@ -38,7 +38,7 @@ public class Chiffre {
 
 	private int[][] analyse(String input) {
 
-		int alphabetSize = 27;
+		int alphabetSize = 26;
 
 		char[] charArray = input.toCharArray();
 		int[][] statistics = new int[2][alphabetSize];
@@ -50,8 +50,6 @@ public class Chiffre {
 			int charArrayPos = 0;
 			if (aChar >= 97 && aChar <= 122)
 				charArrayPos = aChar - 97; // a - z
-			if (aChar == 32)
-				charArrayPos = 26; // space
 
 			statistics[1][charArrayPos]++;
 		}
@@ -59,20 +57,14 @@ public class Chiffre {
 		System.out.println("Chiffre Inpur: " + chiffre);
 		System.out.println("Analysis: ");
 		for (int i = 0; i < alphabetSize; i++) {
-			char currSign = 0;
-			if (i == alphabetSize - 1)
-				currSign = 32;
-			else
 			System.out.println((char)statistics[0][i] + " " + statistics[1][i]);
 		}
-
+		System.out.println("Sorting: ");
 		return statistics;
 	}
 
 	private void decipher(int[][] charFrequency, String chiffre) {
 		System.out.println("");
-
-		//java.util.Arrays.sort(charFrequency, java.util.Comparator.comparingInt(a -> a[1]));
 		char[] cipherText = chiffre.toCharArray();
 		char[] finalText = new char[chiffre.length()];
 		
