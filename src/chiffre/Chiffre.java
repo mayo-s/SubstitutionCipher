@@ -107,11 +107,14 @@ public class Chiffre {
 			}
 		}
 		
+		System.out.println("");
+		System.out.println("Chiffre: ");
+		System.out.println(chiffre + "\n");
 		System.out.println("Decipher: ");
 		for (char i : finalText) {
 			System.out.print(i);
 		}
-		System.out.println("");
+		System.out.println("\n");
 		System.out.println("Should be: ");
 		System.out.println(text);
 		
