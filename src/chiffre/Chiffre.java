@@ -11,6 +11,7 @@ public class Chiffre {
 	private static Chiffre doStuff;
 	private char[] engLetterFreq = { ' ', 'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w',
 			'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z' };
+
 	private static String chiffre = "xureveoulrefknpavberweqwuegwceappergvleovlrazfbevdfaewmedfbwubjvbyenpfalusfeabdensavlvbyenavbecalexwsbeabdevecvppeyvtfeqwueaejwonpfrfeajjwubrewmergfelqlrfoeabdefknwubdergfeajruaperfajgvbylewmergfeysfarefknpwsfsewmergfersurgergfeoalrfsexuvpdfsewmeguoabegannvbfll";
 	private static String text = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth the master builder of human happiness";
 
@@ -21,7 +22,7 @@ public class Chiffre {
 		doStuff = new Chiffre();
 		// String userInput = doStuff.userInput();
 		int[][] charFrequency = doStuff.analyse(chiffre.toLowerCase());
-		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre);
+		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre.toLowerCase());
 	}
 
 	private String userInput() throws IOException {
@@ -100,16 +101,20 @@ public class Chiffre {
 		for (int n = 0; n < engLetterFreq.length; n++) {
 			char currStatisticsChar = engLetterFreq[n];
 			char currAnalysisChar = (char) charFrequency[0][n];
+
 			for (int i = 0; i < cipherText.length; i++) {
-				if(cipherText[i] == currAnalysisChar){
+				if (cipherText[i] == currAnalysisChar) {
+					System.out.println("analysChar: " + currAnalysisChar + " cipher: " + cipherText[i] + " statChar: "
+							+ currStatisticsChar);
 					finalText[i] = currStatisticsChar;
 				}
 			}
 		}
-		
+
 		System.out.println("");
 		System.out.println("Chiffre: ");
 		System.out.println(chiffre + "\n");
+
 		System.out.println("Decipher: ");
 		for (char i : finalText) {
 			System.out.print(i);
@@ -117,6 +122,6 @@ public class Chiffre {
 		System.out.println("\n");
 		System.out.println("Should be: ");
 		System.out.println(text);
-		
+
 	}
 }
