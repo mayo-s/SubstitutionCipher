@@ -11,9 +11,9 @@ public class Chiffre {
 	private static Chiffre doStuff;
 	private char[] engLetterFreq = { ' ', 'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w',
 			'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z' };
-
 	private static String chiffre = "xureveoulrefknpavberweqwuegwceappergvleovlrazfbevdfaewmedfbwubjvbyenpfalusfeabdensavlvbyenavbecalexwsbeabdevecvppeyvtfeqwueaejwonpfrfeajjwubrewmergfelqlrfoeabdefknwubdergfeajruaperfajgvbylewmergfeysfarefknpwsfsewmergfersurgergfeoalrfsexuvpdfsewmeguoabegannvbfll";
 	private static String text = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth the master builder of human happiness";
+	private static String word = "Aaron";
 
 	public Chiffre() {
 	}
@@ -23,6 +23,8 @@ public class Chiffre {
 		// String userInput = doStuff.userInput();
 		int[][] charFrequency = doStuff.analyse(chiffre.toLowerCase());
 		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre.toLowerCase());
+
+		dictionary("c:/tmp/wordlist.txt");
 	}
 
 	private String userInput() throws IOException {
@@ -101,11 +103,8 @@ public class Chiffre {
 		for (int n = 0; n < engLetterFreq.length; n++) {
 			char currStatisticsChar = engLetterFreq[n];
 			char currAnalysisChar = (char) charFrequency[0][n];
-
 			for (int i = 0; i < cipherText.length; i++) {
 				if (cipherText[i] == currAnalysisChar) {
-					System.out.println("analysChar: " + currAnalysisChar + " cipher: " + cipherText[i] + " statChar: "
-							+ currStatisticsChar);
 					finalText[i] = currStatisticsChar;
 				}
 			}
@@ -114,14 +113,40 @@ public class Chiffre {
 		System.out.println("");
 		System.out.println("Chiffre: ");
 		System.out.println(chiffre + "\n");
-
 		System.out.println("Decipher: ");
+		String decFinalText = "";
+
 		for (char i : finalText) {
-			System.out.print(i);
+
+			// System.out.print(i);
+			decFinalText += i;
 		}
+		String[] decWordsArray = decFinalText.split("");
+		System.out.println(decFinalText);
+
 		System.out.println("\n");
 		System.out.println("Should be: ");
 		System.out.println(text);
 
+	}
+
+	public static void dictionary(String file) {
+		ReadFile rf = new ReadFile();
+
+		// The text file location of your choice
+		String filename = file;
+
+		try {
+			String[] lines = rf.readLines(filename);
+
+			for (String line : lines) {
+				if (line.equals(word)) {
+					System.out.println(line);
+				}
+			}
+		} catch (IOException e) {
+			// Print out the exception that occurred
+			System.out.println("Unable to create " + filename + ": " + e.getMessage());
+		}
 	}
 }
