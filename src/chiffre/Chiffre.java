@@ -24,7 +24,7 @@ public class Chiffre {
 		int[][] charFrequency = doStuff.analyse(chiffre.toLowerCase());
 		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre.toLowerCase());
 
-		dictionary("c:/tmp/wordlist.txt");
+		dictionary("./wordlist.txt");
 	}
 
 	private String userInput() throws IOException {
@@ -122,12 +122,11 @@ public class Chiffre {
 			decFinalText += i;
 		}
 		String[] decWordsArray = decFinalText.split("");
-		System.out.println(decFinalText);
+		System.out.print(decFinalText);
 
 		System.out.println("\n");
 		System.out.println("Should be: ");
 		System.out.println(text);
-
 	}
 
 	public static void dictionary(String file) {
