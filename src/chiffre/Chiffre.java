@@ -124,8 +124,34 @@ public class Chiffre {
 		}
 		String[] decWordsArray = decFinalText.split(" ");
 		
+		findOneLetterWord(decWordsArray);
+		
 		System.out.print(decFinalText);
+		System.out.println("\nShould be: ");
+		System.out.println(text);
+	}
 
+	public static void dictionary(String file) {
+		ReadFile rf = new ReadFile();
+
+		// The text file location of your choice
+		String filename = file;
+
+		try {
+			String[] lines = rf.readLines(filename);
+
+			for (String line : lines) {
+				if (line.equals(word)) {
+					System.out.println(line);
+				}
+			}
+		} catch (IOException e) {
+			// Print out the exception that occurred
+			System.out.println("Unable to create " + filename + ": " + e.getMessage());
+		}
+	}
+	
+	private char[] findOneLetterWord(String[] decWordsArray){
 		System.out.println("\n");
 		int[] oneLetterWords = {0, 0, 0, 0};
 		
@@ -159,27 +185,6 @@ public class Chiffre {
 		else if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
 		else if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
 		
-		System.out.println("\nShould be: ");
-		System.out.println(text);
-	}
-
-	public static void dictionary(String file) {
-		ReadFile rf = new ReadFile();
-
-		// The text file location of your choice
-		String filename = file;
-
-		try {
-			String[] lines = rf.readLines(filename);
-
-			for (String line : lines) {
-				if (line.equals(word)) {
-					System.out.println(line);
-				}
-			}
-		} catch (IOException e) {
-			// Print out the exception that occurred
-			System.out.println("Unable to create " + filename + ": " + e.getMessage());
-		}
+		return null;
 	}
 }
