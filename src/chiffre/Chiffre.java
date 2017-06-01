@@ -132,18 +132,19 @@ public class Chiffre {
 		for(String word : decWordsArray){
 			
 			if(word.length() == 1){
-				System.out.println(word);
+				System.out.println("word: " + word);
+				System.out.println("word.charAt(0): " + word.charAt(0));
 				
-				if(oneLetterWords[0] == 0){
+				if(oneLetterWords[0] <= 0){
 					oneLetterWords[0] = word.charAt(0);
 					oneLetterWords[1]++;
 				}
-				else if(oneLetterWords[2] == 0){
-					oneLetterWords[2] = word.charAt(0);
-					oneLetterWords[3]++;
-				}
 				else if(oneLetterWords[0] == word.charAt(0)){
 					oneLetterWords[1]++;
+				}
+				else if(oneLetterWords[2] <= 0){
+					oneLetterWords[2] = word.charAt(0);
+					oneLetterWords[3]++;
 				}
 				else if(oneLetterWords[2] == word.charAt(0)){
 					oneLetterWords[3]++;
@@ -151,8 +152,12 @@ public class Chiffre {
 			}
 		}
 		
-		if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
-		if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
+		if(oneLetterWords[0] == 'a') System.out.println("a!: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
+		else if(oneLetterWords[2] == 'a') System.out.println("a!: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
+		else if(oneLetterWords[0] == 'i') System.out.println("a: " + (char)oneLetterWords[2] + " i!: " + (char)oneLetterWords[0]);
+		else if(oneLetterWords[2] == 'i') System.out.println("a: " + (char)oneLetterWords[0] + " i!: " + (char)oneLetterWords[2]);
+		else if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
+		else if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
 		
 		System.out.println("\nShould be: ");
 		System.out.println(text);
