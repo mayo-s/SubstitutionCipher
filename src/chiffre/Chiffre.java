@@ -24,7 +24,7 @@ public class Chiffre {
 		int[][] charFrequency = doStuff.analyse(chiffre.toLowerCase());
 		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre.toLowerCase());
 
-		dictionary("./wordlist.txt");
+		dictionary("/Users/mayo/Dropbox/Studium/S4/ITSI/exercises/chiffre/src/wordlist.txt");
 	}
 
 	private String userInput() throws IOException {
@@ -53,7 +53,7 @@ public class Chiffre {
 			statistics[1][charArrayPos]++;
 		}
 
-		System.out.println("Chiffre Inpur: " + chiffre);
+		System.out.println("Chiffre Input: " + chiffre);
 		System.out.println("Analysis: ");
 		for (int i = 0; i < alphabetSize; i++) {
 			System.out.println((char) statistics[0][i] + " " + statistics[1][i]);
@@ -94,6 +94,7 @@ public class Chiffre {
 		int length = 27;
 		char[] cipherText = chiffre.toCharArray();
 		char[] finalText = new char[chiffre.length()];
+		char[] finalText2 = new char[chiffre.length()];
 
 		System.out.println("Sorted: ");
 		for (int i = 0; i < length; i++) {
@@ -113,7 +114,7 @@ public class Chiffre {
 		System.out.println("");
 		System.out.println("Chiffre: ");
 		System.out.println(chiffre + "\n");
-		System.out.println("Decipher: ");
+		System.out.println("Decipher eng Stat: ");
 		String decFinalText = "";
 
 		for (char i : finalText) {
@@ -121,11 +122,39 @@ public class Chiffre {
 			// System.out.print(i);
 			decFinalText += i;
 		}
-		String[] decWordsArray = decFinalText.split("");
+		String[] decWordsArray = decFinalText.split(" ");
+		
 		System.out.print(decFinalText);
 
 		System.out.println("\n");
-		System.out.println("Should be: ");
+		int[] oneLetterWords = {0, 0, 0, 0};
+		
+		for(String word : decWordsArray){
+			
+			if(word.length() == 1){
+				System.out.println(word);
+				
+				if(oneLetterWords[0] == 0){
+					oneLetterWords[0] = word.charAt(0);
+					oneLetterWords[1]++;
+				}
+				else if(oneLetterWords[2] == 0){
+					oneLetterWords[2] = word.charAt(0);
+					oneLetterWords[3]++;
+				}
+				else if(oneLetterWords[0] == word.charAt(0)){
+					oneLetterWords[1]++;
+				}
+				else if(oneLetterWords[2] == word.charAt(0)){
+					oneLetterWords[3]++;
+				}	
+			}
+		}
+		
+		if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
+		if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
+		
+		System.out.println("\nShould be: ");
 		System.out.println(text);
 	}
 
