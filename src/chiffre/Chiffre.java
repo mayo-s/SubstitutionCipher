@@ -24,7 +24,7 @@ public class Chiffre {
 		int[][] charFrequency = doStuff.analyse(chiffre.toLowerCase());
 		doStuff.decipher(doStuff.sortArray(charFrequency), chiffre.toLowerCase());
 
-		dictionary("/Users/mayo/Dropbox/Studium/S4/ITSI/exercises/chiffre/src/wordlist.txt");
+		dictionary("./src/wordlist.txt");
 	}
 
 	private String userInput() throws IOException {
