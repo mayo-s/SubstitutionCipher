@@ -9,13 +9,16 @@ import java.util.Collections;
 public class Chiffre {
 
 	private static Chiffre doStuff;
+	private static int alphabetSize = 27;
 	private char[] engLetterFreq = { ' ', 'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w',
 			'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z' };
 	private static String chiffre = "xureveoulrefknpavberweqwuegwceappergvleovlrazfbevdfaewmedfbwubjvbyenpfalusfeabdensavlvbyenavbecalexwsbeabdevecvppeyvtfeqwueaejwonpfrfeajjwubrewmergfelqlrfoeabdefknwubdergfeajruaperfajgvbylewmergfeysfarefknpwsfsewmergfersurgergfeoalrfsexuvpdfsewmeguoabegannvbfll";
 	private static String text = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth the master builder of human happiness";
 	private static String word = "Aaron";
-
+	private static char[] correctLetters; // [0] == Space, [1..] == a to z
+	
 	public Chiffre() {
+		correctLetters = new char[alphabetSize];
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -36,8 +39,6 @@ public class Chiffre {
 	}
 
 	private int[][] analyse(String input) {
-
-		int alphabetSize = 27;
 
 		char[] charArray = input.toCharArray();
 		int[][] statistics = new int[2][alphabetSize];
@@ -64,20 +65,17 @@ public class Chiffre {
 
 	private int[][] sortArray(int[][] charFrequency) {
 
-		int length = 27;
+		int[][] sortedByValue = new int[2][alphabetSize];
 
-		int[][] sortedByValue = new int[2][length];
-
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < alphabetSize; i++) {
 			int maxValue = 0;
 			int theChar = 0;
 			int posOfMaxValue = 0;
-			for (int curr = 0; curr < length; curr++) {
+			for (int curr = 0; curr < alphabetSize; curr++) {
 				if (charFrequency[1][curr] > maxValue) {
 					theChar = charFrequency[0][curr];
 					maxValue = charFrequency[1][curr];
 					posOfMaxValue = curr;
-
 				}
 			}
 			sortedByValue[0][i] = theChar;
@@ -91,13 +89,12 @@ public class Chiffre {
 	private void decipher(int[][] charFrequency, String chiffre) {
 
 		System.out.println("");
-		int length = 27;
 		char[] cipherText = chiffre.toCharArray();
 		char[] finalText = new char[chiffre.length()];
 		char[] finalText2 = new char[chiffre.length()];
 
 		System.out.println("Sorted: ");
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < alphabetSize; i++) {
 			System.out.println((char) charFrequency[0][i] + " " + charFrequency[1][i]);
 		}
 
@@ -123,7 +120,6 @@ public class Chiffre {
 			decFinalText += i;
 		}
 		String[] decWordsArray = decFinalText.split(" ");
-		
 		
 		System.out.println(decFinalText);
 		System.out.println("\nShould be: ");
@@ -152,7 +148,7 @@ public class Chiffre {
 		}
 	}
 	
-	private char[] findOneLetterWord(String[] decWordsArray){
+	private void findOneLetterWord(String[] decWordsArray){
 		System.out.println("\n");
 		int[] oneLetterWords = {0, 0, 0, 0};
 		
@@ -186,33 +182,31 @@ public class Chiffre {
 		else if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
 		else if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
 		
-		char[] arrayToReturn = {'a', '0', 'i', '0'};
 		if(oneLetterWords[0] == 'a'){
-			arrayToReturn[1] = (char)oneLetterWords[0];
-			arrayToReturn[3] = (char)oneLetterWords[2];
+			correctLetters[1] = (char)oneLetterWords[0];
+			correctLetters[9] = (char)oneLetterWords[2];
 		}
 		else if(oneLetterWords[2] == 'a'){
-			arrayToReturn[1] = (char)oneLetterWords[2];
-			arrayToReturn[3] = (char)oneLetterWords[0];
+			correctLetters[1] = (char)oneLetterWords[2];
+			correctLetters[9] = (char)oneLetterWords[0];
 		
 		}
 		else if(oneLetterWords[0] == 'i'){
-			arrayToReturn[1] = (char)oneLetterWords[2];
-			arrayToReturn[3] = (char)oneLetterWords[0];
+			correctLetters[1] = (char)oneLetterWords[2];
+			correctLetters[9] = (char)oneLetterWords[0];
 			}
 		else if(oneLetterWords[2] == 'i'){
-			arrayToReturn[1] = (char)oneLetterWords[0];
-			arrayToReturn[3] = (char)oneLetterWords[2];
+			correctLetters[1] = (char)oneLetterWords[0];
+			correctLetters[9] = (char)oneLetterWords[2];
 			}
 		else if(oneLetterWords[1] >= oneLetterWords[3]){
-			arrayToReturn[1] = (char)oneLetterWords[0];
-			arrayToReturn[3] = (char)oneLetterWords[2];
+			correctLetters[1] = (char)oneLetterWords[0];
+			correctLetters[9] = (char)oneLetterWords[2];
 		}
 		else if(oneLetterWords[1] < oneLetterWords[3]){
-			arrayToReturn[1] = (char)oneLetterWords[2];
-			arrayToReturn[3] = (char)oneLetterWords[0];
+			correctLetters[1] = (char)oneLetterWords[2];
+			correctLetters[9] = (char)oneLetterWords[0];
 		}
-		
-		return null;
+		System.out.println("a: " + correctLetters[1] + " i: " + correctLetters[9]);
 	}
 }
