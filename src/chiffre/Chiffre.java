@@ -124,11 +124,12 @@ public class Chiffre {
 		}
 		String[] decWordsArray = decFinalText.split(" ");
 		
-		findOneLetterWord(decWordsArray);
 		
-		System.out.print(decFinalText);
+		System.out.println(decFinalText);
 		System.out.println("\nShould be: ");
 		System.out.println(text);
+
+		findOneLetterWord(decWordsArray);
 	}
 
 	public static void dictionary(String file) {
@@ -184,6 +185,33 @@ public class Chiffre {
 		else if(oneLetterWords[2] == 'i') System.out.println("a: " + (char)oneLetterWords[0] + " i!: " + (char)oneLetterWords[2]);
 		else if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
 		else if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
+		
+		char[] arrayToReturn = {'a', '0', 'i', '0'};
+		if(oneLetterWords[0] == 'a'){
+			arrayToReturn[1] = (char)oneLetterWords[0];
+			arrayToReturn[3] = (char)oneLetterWords[2];
+		}
+		else if(oneLetterWords[2] == 'a'){
+			arrayToReturn[1] = (char)oneLetterWords[2];
+			arrayToReturn[3] = (char)oneLetterWords[0];
+		
+		}
+		else if(oneLetterWords[0] == 'i'){
+			arrayToReturn[1] = (char)oneLetterWords[2];
+			arrayToReturn[3] = (char)oneLetterWords[0];
+			}
+		else if(oneLetterWords[2] == 'i'){
+			arrayToReturn[1] = (char)oneLetterWords[0];
+			arrayToReturn[3] = (char)oneLetterWords[2];
+			}
+		else if(oneLetterWords[1] >= oneLetterWords[3]){
+			arrayToReturn[1] = (char)oneLetterWords[0];
+			arrayToReturn[3] = (char)oneLetterWords[2];
+		}
+		else if(oneLetterWords[1] < oneLetterWords[3]){
+			arrayToReturn[1] = (char)oneLetterWords[2];
+			arrayToReturn[3] = (char)oneLetterWords[0];
+		}
 		
 		return null;
 	}
