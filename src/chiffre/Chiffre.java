@@ -128,9 +128,24 @@ public class Chiffre {
 		System.out.println("\nShould be: ");
 		System.out.println(text);
 
+		dictionary(dictPath, ""); //initialize dictionary
 		findOneLetterWord(decWordsArray);
-		findTwoLetterWord(decWordsArray);
-		findThreeLetterWord(decWordsArray);
+		
+		String finalTextTemp = "";
+		for (char ch : finalText) {
+			for (int index = 0; index < correctLetters.length; index++) {
+				if (correctLetters[index] >= (char) 97 && correctLetters[index] <= (char) 122) {
+					if ((char) index + 96 == ch) {
+						finalTextTemp += correctLetters[index];
+					}
+				} else {
+					finalTextTemp += ch;
+				}
+			}
+		}
+
+		System.out.println(finalTextTemp);
+		
 		findWordPattern(decWordsArray);
 
 		System.out.print("Correct letters: \n");
@@ -199,16 +214,24 @@ public class Chiffre {
 		if (oneLetterWords[0] == 'a') {
 			correctLetters[1] = (char) oneLetterWords[0];
 			correctLetters[9] = (char) oneLetterWords[2];
+			correctLetters[(int) oneLetterWords[0] - 96] = 'a';
+			correctLetters[(int) oneLetterWords[2] - 96] = 'i';
 		} else if (oneLetterWords[2] == 'a') {
 			correctLetters[1] = (char) oneLetterWords[2];
 			correctLetters[9] = (char) oneLetterWords[0];
+			correctLetters[(int) oneLetterWords[2] - 96] = 'a';
+			correctLetters[(int) oneLetterWords[0] - 96] = 'i';
 
 		} else if (oneLetterWords[0] == 'i') {
 			correctLetters[1] = (char) oneLetterWords[2];
 			correctLetters[9] = (char) oneLetterWords[0];
+			correctLetters[(int) oneLetterWords[2] - 96] = 'a';
+			correctLetters[(int) oneLetterWords[0] - 96] = 'i';
 		} else if (oneLetterWords[2] == 'i') {
 			correctLetters[1] = (char) oneLetterWords[0];
 			correctLetters[9] = (char) oneLetterWords[2];
+			correctLetters[(int) oneLetterWords[0] - 96] = 'a';
+			correctLetters[(int) oneLetterWords[2] - 96] = 'i';
 		} else if (oneLetterWords[1] >= oneLetterWords[3]) {
 			correctLetters[1] = (char) oneLetterWords[0];
 			correctLetters[9] = (char) oneLetterWords[2];
@@ -217,12 +240,13 @@ public class Chiffre {
 			correctLetters[9] = (char) oneLetterWords[0];
 		}
 		System.out.println("a: " + correctLetters[1] + " i: " + correctLetters[9]);
+		System.out.println("a: " + correctLetters[1] + " i: " + correctLetters[9]);
 	}
 
 	private void findTwoLetterWord(String[] decWordsArray) {
 		for (String word : decWordsArray) {
 			if (word.length() == 2) {
-				dictionary(dicPath, word);
+				dictionary(dictPath, word);
 			}
 		}
 	}
@@ -230,7 +254,7 @@ public class Chiffre {
 	private void findThreeLetterWord(String[] decWordsArray) {
 		for (String word : decWordsArray) {
 			if (word.length() == 3) {
-				dictionary(dicPath, word);
+				dictionary(dictPath, word);
 			}
 		}
 	}
