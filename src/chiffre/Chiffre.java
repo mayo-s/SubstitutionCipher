@@ -175,12 +175,18 @@ public class Chiffre {
 			}
 		}
 		
-		if(oneLetterWords[0] == 'a') System.out.println("a!: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
-		else if(oneLetterWords[2] == 'a') System.out.println("a!: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
-		else if(oneLetterWords[0] == 'i') System.out.println("a: " + (char)oneLetterWords[2] + " i!: " + (char)oneLetterWords[0]);
-		else if(oneLetterWords[2] == 'i') System.out.println("a: " + (char)oneLetterWords[0] + " i!: " + (char)oneLetterWords[2]);
-		else if(oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
-		else if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
+		// if(oneLetterWords[0] == 'a') System.out.println("a!: " +
+		// (char)oneLetterWords[0] + " i: " + (char)oneLetterWords[2]);
+		// else if(oneLetterWords[2] == 'a') System.out.println("a!: " +
+		// (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
+		// else if(oneLetterWords[0] == 'i') System.out.println("a: " +
+		// (char)oneLetterWords[2] + " i!: " + (char)oneLetterWords[0]);
+		// else if(oneLetterWords[2] == 'i') System.out.println("a: " +
+		// (char)oneLetterWords[0] + " i!: " + (char)oneLetterWords[2]);
+		// else if(oneLetterWords[1] >= oneLetterWords[3])
+		// System.out.println("a: " + (char)oneLetterWords[0] + " i: " +
+		// (char)oneLetterWords[2]);
+		// else if(oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " + (char)oneLetterWords[2] + " i: " + (char)oneLetterWords[0]);
 		
 		if(oneLetterWords[0] == 'a'){
 			correctLetters[1] = (char)oneLetterWords[0];
@@ -189,7 +195,6 @@ public class Chiffre {
 		else if(oneLetterWords[2] == 'a'){
 			correctLetters[1] = (char)oneLetterWords[2];
 			correctLetters[9] = (char)oneLetterWords[0];
-		
 		}
 		else if(oneLetterWords[0] == 'i'){
 			correctLetters[1] = (char)oneLetterWords[2];
