@@ -4,24 +4,29 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+//import java.util.Arrays;
+//import java.util.Collections;
 
 public class Chiffre {
 
 	private static Chiffre doStuff;
-	private static int alphabetSize = 27;
+	private static int alphabetSize;
 	private char[] engLetterFreq = { ' ', 'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w',
 			'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z' };
-	private static String chiffre = "xureveoulrefknpavberweqwuegwceappergvleovlrazfbevdfaewmedfbwubjvbyenpfalusfeabdensavlvbyenavbecalexwsbeabdevecvppeyvtfeqwueaejwonpfrfeajjwubrewmergfelqlrfoeabdefknwubdergfeajruaperfajgvbylewmergfeysfarefknpwsfsewmergfersurgergfeoalrfsexuvpdfsewmeguoabegannvbfll";
-	private static String text = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth the master builder of human happiness";
+	private static String chiffre;
+	private static String text;
 	private static char[] correctLetters; // [0] == Space, [1..] == a to z
-	private static String dicPath = "./src/wordlist.txt";
+	private static String dictPath;
 	private static String[] dictionary;
-	private static ArrayList<ArrayList<String>> repeatedCharWordArray = new ArrayList<>();
+	private static ArrayList<ArrayList<String>> repeatedCharWordArray;
 
 	public Chiffre() {
+		alphabetSize = 27;
+		chiffre = "xureveoulrefknpavberweqwuegwceappergvleovlrazfbevdfaewmedfbwubjvbyenpfalusfeabdensavlvbyenavbecalexwsbeabdevecvppeyvtfeqwueaejwonpfrfeajjwubrewmergfelqlrfoeabdefknwubdergfeajruaperfajgvbylewmergfeysfarefknpwsfsewmergfersurgergfeoalrfsexuvpdfsewmeguoabegannvbfll";
+		text = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth the master builder of human happiness";
 		correctLetters = new char[alphabetSize];
+		dictPath  = "./src/wordlist.txt";
+		repeatedCharWordArray = new ArrayList<ArrayList<String>>();
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -90,7 +95,7 @@ public class Chiffre {
 		System.out.println("");
 		char[] cipherText = chiffre.toCharArray();
 		char[] finalText = new char[chiffre.length()];
-		char[] finalText2 = new char[chiffre.length()];
+	//	char[] finalText2 = new char[chiffre.length()];
 
 		System.out.println("Sorted: ");
 		for (int i = 0; i < alphabetSize; i++) {
@@ -128,9 +133,9 @@ public class Chiffre {
 		findThreeLetterWord(decWordsArray);
 		findWordPattern(decWordsArray);
 
-		System.out.print("Correct letters: \t");
+		System.out.print("Correct letters: \n");
 		System.out.println(correctLetters);
-		System.out.print("Letter frequency: \t");
+		System.out.print("Letter frequency: \n");
 		System.out.println(engLetterFreq);
 	}
 
@@ -256,7 +261,7 @@ public class Chiffre {
 				}
 
 				if (hasRepChar) {
-					ArrayList<String> matchingStrings = new ArrayList<>();
+					ArrayList<String> matchingStrings = new ArrayList<String>();
 					matchingStrings.add(word);
 					for (String line : dictionary) {
 						boolean isUnusable = false;
@@ -309,13 +314,12 @@ public class Chiffre {
 							}
 						}
 					}
-
 					repeatedCharWordArray.add(matchingStrings);
 				}
 				// dictionary(dicPath,word);
 			}
 		}
 	}
-	// Liste der matchingWord aller anderen Wörter durchgehen. RegEx: teilmenge
+	// Liste der matching Words aller anderen Wörter durchgehen. RegEx: Teilmenge
 	// in der entdeckten Buchstaben müssen Ergebnis liefern. ansonsten remove()
 }
