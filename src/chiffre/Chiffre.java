@@ -132,21 +132,29 @@ public class Chiffre {
 		findOneLetterWord(decWordsArray);
 		
 		String finalTextTemp = "";
+		boolean replaced = false;
 		for (char ch : finalText) {
 			for (int index = 0; index < correctLetters.length; index++) {
-				if (correctLetters[index] >= (char) 97 && correctLetters[index] <= (char) 122) {
+				if ((int)correctLetters[index] >= 97 && (int)correctLetters[index] <= 122) {
 					if ((char) index + 96 == ch) {
 						finalTextTemp += correctLetters[index];
-					}
-				} else {
-					finalTextTemp += ch;
+						replaced = true;
+						break;
+					}	
 				}
 			}
+			if(!replaced){	
+			finalTextTemp += ch;
+			}
+			replaced= false;
 		}
 
 		System.out.println(finalTextTemp);
 		
-		findWordPattern(decWordsArray);
+		String[] decWordsArray2 = finalTextTemp.split(" ");
+
+		
+		findWordPattern(decWordsArray2);
 
 		System.out.print("Correct letters: \n");
 		System.out.println(correctLetters);
@@ -243,21 +251,21 @@ public class Chiffre {
 		System.out.println("a: " + correctLetters[1] + " i: " + correctLetters[9]);
 	}
 
-	private void findTwoLetterWord(String[] decWordsArray) {
-		for (String word : decWordsArray) {
-			if (word.length() == 2) {
-				dictionary(dictPath, word);
-			}
-		}
-	}
-
-	private void findThreeLetterWord(String[] decWordsArray) {
-		for (String word : decWordsArray) {
-			if (word.length() == 3) {
-				dictionary(dictPath, word);
-			}
-		}
-	}
+//	private void findTwoLetterWord(String[] decWordsArray) {
+//		for (String word : decWordsArray) {
+//			if (word.length() == 2) {
+//				dictionary(dictPath, word);
+//			}
+//		}
+//	}
+//
+//	private void findThreeLetterWord(String[] decWordsArray) {
+//		for (String word : decWordsArray) {
+//			if (word.length() == 3) {
+//				dictionary(dictPath, word);
+//			}
+//		}
+//	}
 
 	private void findWordPattern(String[] decWordsArray) {
 		for (String word : decWordsArray) {
@@ -330,7 +338,7 @@ public class Chiffre {
 								}
 								if (hasMatch) {
 									matchingStrings.add(line.toLowerCase());
-									System.out.println(word + " " + line);
+									//System.out.println(word + " " + line);
 									for (int index = 0; index < line.length(); index++) {
 
 									}
