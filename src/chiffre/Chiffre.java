@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 //import java.util.Arrays;
 //import java.util.Collections;
 
@@ -20,12 +21,62 @@ public class Chiffre {
 	private static String[] dictionary;
 	private static ArrayList<ArrayList<String>> repeatedCharWordArray;
 
+	private char[][] charMatchingList = { /* A */ { 'a' },
+			/* B */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* C */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* D */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* E */ { 'e' },
+			/* F */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* G */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* H */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* I */ { 'i' },
+			/* J */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* K */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* L */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* M */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* N */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* O */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* P */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* Q */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* R */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* S */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* T */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* U */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* V */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* W */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* X */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* Y */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' },
+			/* Z */ { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+					'w', 'x', 'y', 'z' } };
+
 	public Chiffre() {
 		alphabetSize = 27;
 		chiffre = "xureveoulrefknpavberweqwuegwceappergvleovlrazfbevdfaewmedfbwubjvbyenpfalusfeabdensavlvbyenavbecalexwsbeabdevecvppeyvtfeqwueaejwonpfrfeajjwubrewmergfelqlrfoeabdefknwubdergfeajruaperfajgvbylewmergfeysfarefknpwsfsewmergfersurgergfeoalrfsexuvpdfsewmeguoabegannvbfll";
 		text = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth the master builder of human happiness";
 		correctLetters = new char[alphabetSize];
-		dictPath  = "./src/wordlist.txt";
+		dictPath = "./src/wordlist.txt";
 		repeatedCharWordArray = new ArrayList<ArrayList<String>>();
 	}
 
@@ -95,7 +146,7 @@ public class Chiffre {
 		System.out.println("");
 		char[] cipherText = chiffre.toCharArray();
 		char[] finalText = new char[chiffre.length()];
-	//	char[] finalText2 = new char[chiffre.length()];
+		// char[] finalText2 = new char[chiffre.length()];
 
 		System.out.println("Sorted: ");
 		for (int i = 0; i < alphabetSize; i++) {
@@ -128,38 +179,47 @@ public class Chiffre {
 		System.out.println("\nShould be: ");
 		System.out.println(text);
 
-		dictionary(dictPath, ""); //initialize dictionary
+		dictionary(dictPath, ""); // initialize dictionary
 		findOneLetterWord(decWordsArray);
-		
+
 		String finalTextTemp = "";
 		boolean replaced = false;
 		for (char ch : finalText) {
 			for (int index = 0; index < correctLetters.length; index++) {
-				if ((int)correctLetters[index] >= 97 && (int)correctLetters[index] <= 122) {
+				if ((int) correctLetters[index] >= 97 && (int) correctLetters[index] <= 122) {
 					if ((char) index + 96 == ch) {
 						finalTextTemp += correctLetters[index];
 						replaced = true;
 						break;
-					}	
+					}
 				}
 			}
-			if(!replaced){	
-			finalTextTemp += ch;
+			if (!replaced) {
+				finalTextTemp += ch;
 			}
-			replaced= false;
+			replaced = false;
 		}
-
+		System.out.println("\nAfter one letter word correction:");
 		System.out.println(finalTextTemp);
-		
+
 		String[] decWordsArray2 = finalTextTemp.split(" ");
 
-		
 		findWordPattern(decWordsArray2);
 
-		System.out.print("Correct letters: \n");
-		System.out.println(correctLetters);
-		System.out.print("Letter frequency: \n");
-		System.out.println(engLetterFreq);
+		// System.out.print("Correct letters: \n");
+		// System.out.println(correctLetters);
+		// System.out.print("Letter frequency: \n");
+		// System.out.println(engLetterFreq);
+		// System.out.println(repeatedCharWordArray);
+		removeFalseMatches(repeatedCharWordArray);
+
+		for (char[] charList : charMatchingList) {
+			System.out.println("");
+			for (char charMatch : charList) {
+				System.out.print(charMatch + ", ");
+			}
+		}
+
 	}
 
 	public static void dictionary(String file, String word) {
@@ -183,14 +243,14 @@ public class Chiffre {
 	}
 
 	private void findOneLetterWord(String[] decWordsArray) {
-		System.out.println("\n");
+		// System.out.println("\n");
 		int[] oneLetterWords = { 0, 0, 0, 0 };
 
 		for (String word : decWordsArray) {
 
 			if (word.length() == 1) {
-				System.out.println("word: " + word);
-				System.out.println("word.charAt(0): " + word.charAt(0));
+				// System.out.println("word: " + word);
+				// System.out.println("word.charAt(0): " + word.charAt(0));
 
 				if (oneLetterWords[0] <= 0) {
 					oneLetterWords[0] = word.charAt(0);
@@ -205,20 +265,20 @@ public class Chiffre {
 				}
 			}
 		}
-
-		if (oneLetterWords[0] == 'a')
-			System.out.println("a!: " + (char) oneLetterWords[0] + " i: " + (char) oneLetterWords[2]);
-		else if (oneLetterWords[2] == 'a')
-			System.out.println("a!: " + (char) oneLetterWords[2] + " i: " + (char) oneLetterWords[0]);
-		else if (oneLetterWords[0] == 'i')
-			System.out.println("a: " + (char) oneLetterWords[2] + " i!: " + (char) oneLetterWords[0]);
-		else if (oneLetterWords[2] == 'i')
-			System.out.println("a: " + (char) oneLetterWords[0] + " i!: " + (char) oneLetterWords[2]);
-		else if (oneLetterWords[1] >= oneLetterWords[3])
-			System.out.println("a: " + (char) oneLetterWords[0] + " i: " + (char) oneLetterWords[2]);
-		else if (oneLetterWords[1] < oneLetterWords[3])
-			System.out.println("a: " + (char) oneLetterWords[2] + " i: " + (char) oneLetterWords[0]);
-
+		/*
+		 * if (oneLetterWords[0] == 'a') System.out.println("a!: " + (char)
+		 * oneLetterWords[0] + " i: " + (char) oneLetterWords[2]); else if
+		 * (oneLetterWords[2] == 'a') System.out.println("a!: " + (char)
+		 * oneLetterWords[2] + " i: " + (char) oneLetterWords[0]); else if
+		 * (oneLetterWords[0] == 'i') System.out.println("a: " + (char)
+		 * oneLetterWords[2] + " i!: " + (char) oneLetterWords[0]); else if
+		 * (oneLetterWords[2] == 'i') System.out.println("a: " + (char)
+		 * oneLetterWords[0] + " i!: " + (char) oneLetterWords[2]); else if
+		 * (oneLetterWords[1] >= oneLetterWords[3]) System.out.println("a: " +
+		 * (char) oneLetterWords[0] + " i: " + (char) oneLetterWords[2]); else
+		 * if (oneLetterWords[1] < oneLetterWords[3]) System.out.println("a: " +
+		 * (char) oneLetterWords[2] + " i: " + (char) oneLetterWords[0]);
+		 */
 		if (oneLetterWords[0] == 'a') {
 			correctLetters[1] = (char) oneLetterWords[0];
 			correctLetters[9] = (char) oneLetterWords[2];
@@ -247,25 +307,11 @@ public class Chiffre {
 			correctLetters[1] = (char) oneLetterWords[2];
 			correctLetters[9] = (char) oneLetterWords[0];
 		}
-		System.out.println("a: " + correctLetters[1] + " i: " + correctLetters[9]);
-		System.out.println("a: " + correctLetters[1] + " i: " + correctLetters[9]);
+		// System.out.println("a: " + correctLetters[1] + " i: " +
+		// correctLetters[9]);
+		// System.out.println("a: " + correctLetters[1] + " i: " +
+		// correctLetters[9]);
 	}
-
-//	private void findTwoLetterWord(String[] decWordsArray) {
-//		for (String word : decWordsArray) {
-//			if (word.length() == 2) {
-//				dictionary(dictPath, word);
-//			}
-//		}
-//	}
-//
-//	private void findThreeLetterWord(String[] decWordsArray) {
-//		for (String word : decWordsArray) {
-//			if (word.length() == 3) {
-//				dictionary(dictPath, word);
-//			}
-//		}
-//	}
 
 	private void findWordPattern(String[] decWordsArray) {
 		for (String word : decWordsArray) {
@@ -338,7 +384,7 @@ public class Chiffre {
 								}
 								if (hasMatch) {
 									matchingStrings.add(line.toLowerCase());
-									//System.out.println(word + " " + line);
+									// System.out.println(word + " " + line);
 									for (int index = 0; index < line.length(); index++) {
 
 									}
@@ -352,6 +398,64 @@ public class Chiffre {
 			}
 		}
 	}
-	// Liste der matching Words aller anderen Wörter durchgehen. RegEx: Teilmenge
+
+	private void removeFalseMatches(ArrayList<ArrayList<String>> repeatedCharWordArray) {
+
+		for (int m = 0; m < repeatedCharWordArray.size(); m++) {
+			ArrayList<String> arrList = repeatedCharWordArray.get(m);
+			// for (Iterator<ArrayList<String>> arrList =
+			// repeatedCharWordArray.iterator(); arrList.hasNext();) {
+			String origWord = arrList.get(0);
+			// for ( String matchingWord : (Iterable<matchingWord>) () ->
+			// arrList) {
+			for (int n = 0; n < repeatedCharWordArray.get(m).size(); n++) {
+				String word2compare = arrList.get(n);
+				if (origWord == word2compare)
+					continue;
+
+				char[] origChars = origWord.toCharArray();
+				char[] matchingChars = word2compare.toCharArray();
+
+				for (int origIndex = 0; origIndex < origChars.length; origIndex++) {
+					// System.out.print(((int)matchingChars[origIndex]-97) + "
+					// gleich " + matchingChars[origIndex] + ", ");
+					char[] possibleChars = charMatchingList[(int) matchingChars[origIndex] - 97];
+
+						boolean hasMatch = false;
+
+						for (int charIndex = 0; charIndex < possibleChars.length; charIndex++) {
+							
+							if(possibleChars.length == 1 && origIndex == charIndex && origChars[origIndex] == 'a' && origChars[origIndex] != matchingChars[charIndex]){
+								System.out.println("posschar: " + possibleChars[0]);
+								System.out.println(origWord + " " + word2compare + " " + origChars[origIndex] + " " + matchingChars[charIndex]);
+
+								repeatedCharWordArray.get(m).remove(n);
+								break;
+							}
+							
+							else if (possibleChars[charIndex] == origChars[origIndex]) {
+								hasMatch = true;
+
+								break;
+							}
+						}
+
+						if (!hasMatch) {
+							// System.out.println(repeatedCharWordArray.get(getIndex));
+
+							repeatedCharWordArray.get(m).remove(word2compare);
+							// System.out.println(repeatedCharWordArray.get(getIndex));
+							break;
+						}
+					}
+			}
+
+			if (repeatedCharWordArray.get(m).size() <= 9)
+				System.out.println(repeatedCharWordArray.get(m));
+		}
+	}
+
+	// Liste der matching Words aller anderen Wörter durchgehen. RegEx:
+	// Teilmenge
 	// in der entdeckten Buchstaben müssen Ergebnis liefern. ansonsten remove()
 }
